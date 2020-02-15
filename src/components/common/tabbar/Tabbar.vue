@@ -20,5 +20,6 @@ export default {
   justify-content: space-around;
   padding: .5rem 0;
   background-color: #fff;
+  box-shadow: 0 -5px 10px rgba(100,100,100,.1);
 }
 </style>

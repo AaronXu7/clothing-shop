@@ -1,1 +1,17 @@
-@main-color:#009999;
+@main-color:#f37461;
+
+ // 文本隐藏
+.ellipsis {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+// 多行文本隐藏
+.multi-ellipsis(@line: 2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @line;
+}
