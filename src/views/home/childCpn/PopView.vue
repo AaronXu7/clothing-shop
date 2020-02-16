@@ -3,6 +3,7 @@
       <h3>本周流行</h3>
       <div class="pop-items">
         <a class="pop-item" v-for="(item,index) in pop8" :key="index">
+            <!-- <img class="pop-img" :src="item.show.img " alt=""> -->
             <div class="pop-img" :style="{backgroundImage: 'url(' + item.show.img + ')'}"></div>
             <h5>{{item.title}}</h5>
         </a>

@@ -27,6 +27,7 @@ export default {
     methods:{
         itemClick(index){
             this.currentIndex = index
+            this.$emit('itemClick',index)
         }
     }
 }
@@ -37,7 +38,7 @@ export default {
         background-color: #fff;
         display: flex;
         justify-content: space-around;
-        padding: 1rem 0;
+        padding: .5rem 0;
         .tab-item{
             text-align: center;
             padding: .5rem;

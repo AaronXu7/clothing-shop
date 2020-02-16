@@ -1,14 +1,16 @@
 <template>
   <div class="products-item">
-      <img :src="productsItem.show.img" :alt="productsItem.title">
-      <p>{{productsItem.title}}</p>
-      <h5>
-        {{productsItem.orgPrice}}
-        <span>
-            <i class="fas fa-star"></i>
-            {{productsItem.cfav}}
-        </span>
-      </h5>
+      <div class="products-padding">
+            <img :src="productsItem.show.img" :alt="productsItem.title" @load="imgLoad">
+            <p>{{productsItem.title}}</p>
+            <h5>
+                {{productsItem.orgPrice}}
+                <span>
+                    <i class="fas fa-star"></i>
+                    {{productsItem.cfav}}
+                </span>
+            </h5>
+      </div>
   </div>
 </template>
 
@@ -22,6 +24,11 @@ export default {
                 return {}
             }
         }
+    },
+    methods:{
+        imgLoad(){
+            this.$bus.$emit('imgLoad')
+        }
     }
 }
 </script>
@@ -29,6 +36,9 @@ export default {
 <style lang="less">
     .products-item{
         flex: 0 0 50%;
+        .products-padding{
+            padding:.5rem;
+        }
         img{
             width: 100%;
             height: 280px;
@@ -46,8 +56,9 @@ export default {
             color:@main-color;
             span{
                 color:#333;
+                font-size: 12px;
                 .fas{
-                    color:yellow;
+                    color:#FFCC00;
                 }
             }
         }
