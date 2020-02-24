@@ -1,9 +1,7 @@
 <template>
-    <swiper :banner="banner">
+    <swiper :banner="banner" :Height="395">
         <swiper-item v-for="(item,index) in banner" :key="index" :banner="banner">
-            <a :href="item.link">
-                <img :src="item.image" :alt="item.title">
-            </a>
+            <img :src="item">
         </swiper-item>
     </swiper>
 </template>
@@ -12,7 +10,11 @@
 import {Swiper,SwiperItem} from 'common-cpn/swiper'
 
 export default {
-    name:'HomeSwiper',
+    name:'DetailSwiper',
+    components:{
+        Swiper,
+        SwiperItem
+    },
     props:{
         banner:{
             type:Array,
@@ -20,14 +22,10 @@ export default {
                 return []
             }
         }
-    },
-    components:{
-        Swiper,
-        SwiperItem
     }
 }
 </script>
 
-<style>
-
+<style lang="less">
+    
 </style>

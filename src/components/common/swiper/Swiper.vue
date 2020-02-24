@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" :style="{height:Height + 'px'}">
       <div class="swiper-items" :style="swiperClick(currentIndex)"  >
           <slot></slot>
       </div>
@@ -23,6 +23,10 @@ export default {
         Autoplay:{
             type:Boolean,
             default:true
+        },
+        Height:{
+            type:Number,
+            default:200
         },
         banner:{
             type:Array,
@@ -60,7 +64,6 @@ export default {
 <style lang="less">
     .swiper-container{
         position: relative;
-        height: 200px;
         overflow: hidden;
         .swiper-items{
             position: absolute;

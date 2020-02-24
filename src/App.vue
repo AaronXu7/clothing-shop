@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive exclude="Detail">
+      <router-view/>
+    </keep-alive>
     <menus></menus>
   </div>
 </template>
@@ -11,11 +13,6 @@ export default {
   name:'App',
   components:{
     Menus
-  },
-  filters:{
-    showPirce(pirce){
-      return '￥' + pirce.toFixed(2)
-    }
   }
 }
 </script>

@@ -24,8 +24,9 @@ export default {
 <style lang="less">
     .recommend-views{
         display:flex;
+        justify-content: space-between;
         padding: 1rem 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,.1);
+        box-shadow: 0 5px 10px @border-color;
         .recommend-view{
             text-align: center;
             text-decoration: none;

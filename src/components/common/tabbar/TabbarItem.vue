@@ -1,7 +1,8 @@
 <template>
     <div class="tabbar-item" :class="{isCurrent:isActive}" @click="itemClick">
-        <i class="fas fa-lg" :class="'fa-'+menuIcon"></i>
+        <i class="fa-lg" :class="'fa-'+menuIcon"></i>
         <div class="tabbar-name">{{menu}}</div>
+        <slot/>
     </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
         menuIcon:{
             type:String,
             default(){
-                return 'home'
+                return 'home fas'
             }
         }
     },
@@ -30,9 +31,10 @@ export default {
     },
     methods:{
         itemClick(){
-            if(this.$route.path != this.path){
+            if(this.path !== undefined && this.$route.path != this.path){
                 this.$router.replace(this.path)
             }
+            this.$emit('itemClick')
         }
     }
 }

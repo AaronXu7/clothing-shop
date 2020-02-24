@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state ={
-
+  cartList:[]
 }
 import mutations from './mutations'
 import actions from './actions'

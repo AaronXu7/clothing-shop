@@ -1,10 +1,10 @@
 <template>
-  <div class="products-item">
+  <div class="products-item" @click="toDetail">
       <div class="products-padding">
-            <img :src="productsItem.show.img" :alt="productsItem.title" @load="imgLoad">
+            <img :src="showImg" :alt="productsItem.title" @load="imgLoad">
             <p>{{productsItem.title}}</p>
             <h5>
-                {{productsItem.orgPrice}}
+                {{productsItem.orgPrice || productsItem.discountPrice}}
                 <span>
                     <i class="fas fa-star"></i>
                     {{productsItem.cfav}}
@@ -28,6 +28,18 @@ export default {
     methods:{
         imgLoad(){
             this.$bus.$emit('imgLoad')
+        },
+        toDetail(){
+            if(this.productsItem.iid){
+                this.$router.push('/detail/' + this.productsItem.iid)
+            }else{
+                window.location.href = this.productsItem.item_url
+            }
+        }
+    },
+    computed:{
+        showImg(){
+            return this.productsItem.image || this.productsItem.show.img
         }
     }
 }

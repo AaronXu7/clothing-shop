@@ -21,6 +21,9 @@ export default {
         // z-index: 1;
         text-align: center;
         display: flex;
+        align-items: center;
+        height: 44px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,.2);
         h4{
             margin: .8rem 0;
         }

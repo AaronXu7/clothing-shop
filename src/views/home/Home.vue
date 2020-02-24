@@ -3,7 +3,7 @@
       <!-- 导航nav -->
       <navbar>
         <template v-slot:center>
-          <h4>购物街</h4>
+          <h4><i class="fas fa-mug-hot fa-lg"></i>乐购</h4>
         </template>
       </navbar>
       <!-- 产品tab 吸附时显示 -->
@@ -39,7 +39,6 @@ import Navbar from 'common-cpn/navbar/Navbar'
 import TabControl from 'content-cpn/tabs/TabControl'
 import ProductsList from 'content-cpn/products/ProductsList'
 import Scroll from 'common-cpn/scroll/Scroll'
-import BackTop from 'content-cpn/backTop/BackTop'
 
 import HomeSwiper from './childCpn/HomeSwiper'
 import RecommendView from './childCpn/RecommendView'
@@ -51,7 +50,7 @@ import {
     getHomeProducts
 } from 'network/home'
 
-import { debounce } from 'common/js/utils.js'
+import { itemImgListenerMixin,backTop } from 'common/js/mixin.js'
 
 export default {
     name:'Home',
@@ -62,8 +61,7 @@ export default {
       PopView,
       TabControl,
       ProductsList,
-      Scroll,
-      BackTop
+      Scroll
     },
     data(){
       return {
@@ -79,15 +77,16 @@ export default {
           'sort':'pop'
         }],
         currentIndex:0,
-        showBackTop:false,
-        topA:false,
         tabFixed:{
           loadHeight:true,
           tabOffsetHeight:0,
           isFixed:false
-        }
+        },
+        saveY:0,
+        itemImgListener:null
       }
     },
+    mixins:[itemImgListenerMixin,backTop],
     created(){
       // 获取首页轮播图以及推荐数据
       this.getHomeMultiData()
@@ -99,17 +98,19 @@ export default {
       this.getHomeProducts('sell')
     },
     mounted(){
-      // 监听图片加载
-      const refresh = debounce(this.$refs.scroll.refresh,50)
-      this.$bus.$on('imgLoad',() => {
-        refresh()
-      })
+    },
+    activated(){
+      this.$refs.scroll.refresh()
+      this.$refs.scroll.scrollTo(0,this.saveY,0)
+    },
+    deactivated(){
+      this.saveY = this.$refs.scroll.scroll.y
     },
     updated(){
       if(this.tabFixed.loadHeight) {
         setTimeout(()=>{
           this.tabFixed.tabOffsetHeight = this.$refs.tabHeight2.$el.offsetTop - 44
-        },500)
+        },800)
         this.tabFixed.loadHeight = false
       }
     },
@@ -120,16 +121,9 @@ export default {
         this.$refs.tabHeight1.currentIndex = index
         this.$refs.tabHeight2.currentIndex = index
       },
-      backTop(){
-        this.topA = true
-        this.$refs.scroll.scrollTo(0,0,1000)
-        setTimeout(()=>{
-          this.topA = false
-        },500)
-      },
       contentScroll(pos){
         // 监听返回顶部按键是否显示
-        this.showBackTop = (-pos.y) > 500
+        this.showBack(pos)
         // 监听产品Tab是否吸附
         if (this.tabFixed.tabOffsetHeight != 0) this.tabFixed.isFixed = (-pos.y) > this.tabFixed.tabOffsetHeight
       },
