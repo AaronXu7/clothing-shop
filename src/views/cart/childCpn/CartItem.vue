@@ -46,6 +46,7 @@ export default {
         border-bottom: 1px solid @border-color;
         img{
             height: 120px;
+            width: 80px;
             border-radius: 5px;
         }
         .item-text{
